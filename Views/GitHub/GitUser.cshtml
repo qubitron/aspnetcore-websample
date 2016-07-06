@@ -1,0 +1,26 @@
+@{
+    dynamic profile = ViewData["profile"];
+}
+<html>
+    <head>
+        <title>@profile.name's Profile</title>
+    </head>
+    <body>
+        <div id="header">
+            <h1>GitHub Profile Browser</h1> 
+            <p>Change Profile: 
+                <input id="userId" type="text" placeholder="Enter user id">
+                <input type="button" value="Change" 
+                    onClick="window.location.href='/GitUser/' + document.getElementById('userId').value">
+            </p>
+        </div>
+        <div id="profileCard">
+            <h2>@profile.login's Profile</h2>
+            <img src='@profile.avatar_url&size=200'>
+            <p><a href='@profile.html_url'>@profile.login on GitHub</a>
+            <p>@profile.name</p>
+            <p>@profile.company</p>
+            <p>@profile.location</p>
+        </div>
+    </body>
+</html>

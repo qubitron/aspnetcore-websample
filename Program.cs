@@ -1,3 +1,4 @@
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -10,31 +11,36 @@ using Newtonsoft.Json;
 
 public class GitHubController : Controller
 {
-    public async Task<string> GitUser(string userId)
+    public async Task<IActionResult> GitUser(string userId)
     {
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add("User-Agent", "aspnetcore-websample");
         string result = await client.GetStringAsync("https://api.github.com/users/" + userId);
 
         dynamic data = JsonConvert.DeserializeObject(result);
-        string name = data.name;
+        ViewData["profile"] = data;
 
-        return "Hello " + name + "!!!1";
-    }
+        return View();
+    } 
 }
 
 public class Startup
 {
-    // Add Framework Services
     public void ConfigureServices(IServiceCollection services)
     {
+        // Add MVC to the app
         services.AddMvc();
     }
 
-
-    // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
     {
+        // Show exception details in the browser when requests fail
+        if (env.IsDevelopment()) 
+        {
+            app.UseDeveloperExceptionPage();
+        }
+
+        // Set up MVC Routes
         app.UseMvc(routes =>
         {
             routes.MapRoute(
@@ -51,6 +57,7 @@ public class Program
     {
         var host = new WebHostBuilder()
             .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())
             .UseStartup<Startup>()
             .Build();
 

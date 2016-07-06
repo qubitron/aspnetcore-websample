@@ -4,8 +4,13 @@
       "version": "1.0.0",
       "type": "platform"
     },
+    "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Server.Kestrel": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.AspNetCore.Razor.Tools": {
+      "version": "1.0.0-preview2-final",
+      "type": "build"
+    },
     "Newtonsoft.Json": "9.0.1"
   },
   "frameworks": {
@@ -13,10 +18,14 @@
   },
   "buildOptions": {
     "emitEntryPoint": true,
-    "debugType": "portable"
+    "debugType": "portable",
+    "preserveCompilationContext": true
   },
   "runtimeOptions": {
     "gcServer": true
+  },
+  "tools": {
+    "Microsoft.AspNetCore.Razor.Tools": "1.0.0-preview2-final"
   },
   "tooling": {
     "defaultNamespace": "AspNetCoreWebSample"
