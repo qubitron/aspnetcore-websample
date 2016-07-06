@@ -1,0 +1,30 @@
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #fefefe;
+}
+
+#header {
+    color: #fefefe;
+    background-color: #333333;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#profileCard {
+    margin: 10px;
+}
+
+#profileCard p {
+    margin: 5px;
+}
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

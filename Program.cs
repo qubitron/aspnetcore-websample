@@ -13,15 +13,18 @@ public class GitHubController : Controller
 {
     public async Task<IActionResult> GitUser(string userId)
     {
+        // Get json string containing user's github profile
         var client = new HttpClient();
         client.DefaultRequestHeaders.Add("User-Agent", "aspnetcore-websample");
         string result = await client.GetStringAsync("https://api.github.com/users/" + userId);
 
+        // Deserialize into a dynamic object that can be accessed by the view
         dynamic data = JsonConvert.DeserializeObject(result);
         ViewData["profile"] = data;
 
+        // Renders /Views/GitHub/GitUser.cshtml and returns it to the browser
         return View();
-    } 
+    }
 }
 
 public class Startup
@@ -40,13 +43,16 @@ public class Startup
             app.UseDeveloperExceptionPage();
         }
 
+        // Serve contents of the wwwroot folder as static files
+        app.UseStaticFiles();
+
         // Set up MVC Routes
         app.UseMvc(routes =>
         {
             routes.MapRoute(
                 name: "default",
                 template: "{action}/{userId}",
-                defaults: new { controller = "GitHub", action="GitUser", userId="qubitron" });
+                defaults: new { controller = "GitHub", action="GitUser", userId="qubitron" });             
         });
     }
 }
